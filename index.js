@@ -24,6 +24,15 @@ async function run(){
             const services = await cursor.toArray();
             res.send(services);
         })
+
+        const homeServiceCollection = client.db('goTravel').collection('services');
+
+        app.get('/homeService', async(req, res) => {
+            const query = {}
+            const cursor = homeServiceCollection.find(query);
+            const services = await cursor.limit(3).toArray();
+            res.send(services);
+        })
     }
     finally{
 
