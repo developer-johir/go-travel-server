@@ -26,12 +26,12 @@ async function run(){
             res.send(services);
         })
 
-        // app.get('/homeService', async(req, res) => {
-        //     const query = {}
-        //     const cursor = serviceCollection.find(query);
-        //     const homeService = await cursor.limit(3).toArray();
-        //     res.send(homeService);
-        // })
+        app.get('/homeService', async(req, res) => {
+            const query = {}
+            const cursor = serviceCollection.find(query);
+            const homeService = await cursor.limit(3).toArray();
+            res.send(homeService);
+        })
 
         app.get('/services/:id', (req, res) => {
             const id = req.params.id;
