@@ -47,10 +47,30 @@ async function run(){
             res.send(services);
         })
 
+        app.get('/services/:id', async(req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const service = await serviceCollection.findOne(query);
+            res.send(service);
+        });
+
         app.get('/services/:id', (req, res) => {
             const id = req.params.id;
             const selectedServices = serviceCollection.find(service => service._id === id);
             res.send(selectedServices);
+        });
+
+        app.patch('/services/:id', verifyJWT, async (req, res) => {
+            const id = req.params.id;
+            const status = req.body.status;
+            const query = { _id: ObjectId(id) }
+            const updatedDoc = {
+                $set:{
+                    status: status
+                }
+            }
+            const result = await orderCollection.updateOne(query, updatedDoc);
+            res.send(result);
         })
     }
     finally{
